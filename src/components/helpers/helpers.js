@@ -18,8 +18,33 @@ const helpers = {
       return newItem;
     });
   },
-  def() {},
+
+  filterTickets(array, filter) {
+    const oldArray = [...array];
+    let newArray = [];
+
+    filter.forEach((item) => {
+      switch (item) {
+        case 'Без пересадок':
+          newArray.push(...oldArray.filter((el) => el.segments[0].stops.length === 0));
+          break;
+        case '1 пересадка':
+          newArray.push(...oldArray.filter((el) => el.segments[0].stops.length === 1));
+          break;
+        case '2 пересадки':
+          newArray.push(...oldArray.filter((el) => el.segments[0].stops.length === 2));
+          break;
+        case '3 пересадки':
+          newArray.push(...oldArray.filter((el) => el.segments[0].stops.length === 3));
+          break;
+        default:
+          newArray = oldArray;
+          break;
+      }
+    });
+    return newArray;
+  },
 };
 
 export const { ticketDataConversion } = helpers;
-export const { def } = helpers;
+export const { filterTickets } = helpers;

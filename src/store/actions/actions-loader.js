@@ -1,3 +1,3 @@
-const toggleLoading = (value) => ({ type: 'TOGGLE_LOADING', payload: value });
+const toggleLoading = (status) => ({ type: 'TOGGLE_LOADING', payload: status });
 
 export default toggleLoading;

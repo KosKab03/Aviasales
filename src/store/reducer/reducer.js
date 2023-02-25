@@ -1,9 +1,12 @@
 const defaultState = {
-  filters: [],
+  filters: ['Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'],
   sorting: 'cheap',
   tickets: [],
+  filterTickets: [],
   numberVisibleTickets: 0,
+  found: true,
 };
+
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'TOGGLE_FILTER':
@@ -12,6 +15,10 @@ const reducer = (state = defaultState, action) => {
       return { ...state, filters: ['Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'] };
     case 'DELETE_ALL_FILTER':
       return { ...state, filters: [] };
+    case 'ADD_FILTER_TICKETS':
+      return { ...state, filterTickets: action.payload };
+    case 'FOUND':
+      return { ...state, found: action.payload };
     case 'TOGGLE_SORTING':
       return { ...state, sorting: action.payload };
     case 'GET_TICKETS':
@@ -22,6 +29,8 @@ const reducer = (state = defaultState, action) => {
       return { ...state, numberVisibleTickets: action.payload };
     case 'TOGGLE_LOADING':
       return { ...state, loading: action.payload };
+    case 'TOGGLE_ERROR':
+      return { ...state, error: action.payload };
     default:
       return state;
   }

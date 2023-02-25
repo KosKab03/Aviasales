@@ -4,8 +4,8 @@ import classes from './app.module.scss';
 import SidebarMenu from '../sidebar-menu';
 import HeaderMenu from '../header-menu';
 import TicketList from '../ticket-list';
-import ShowMoreBtn from '../show-more-btn';
 import Loader from '../loader';
+import { ErrorAlerts } from '../alerts/alerts';
 
 import getTickets from '../../store/actions/actions-get-tickets';
 
@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
 
-function App({ loading, fetchData }) {
+function App({ loading, error, fetchData }) {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,7 +24,7 @@ function App({ loading, fetchData }) {
   return (
     <div className={classes.app}>
       <div className={classes['logo-aviasales']} />
-      {!loading ? (
+      {!error ? (
         <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
           <Layout>
             <Sider>
@@ -34,20 +34,20 @@ function App({ loading, fetchData }) {
               <Header>
                 <HeaderMenu />
               </Header>
-              <Content>
-                <TicketList />
-              </Content>
-              <div>
-                <ShowMoreBtn />
-              </div>
+              {!loading ? (
+                <Content>
+                  <TicketList />
+                </Content>
+              ) : (
+                <div className={classes.loader}>
+                  <Loader />
+                </div>
+              )}
             </Layout>
           </Layout>
         </Space>
       ) : (
-        <div className={classes.loader}>
-          <Loader />
-          <p>Загрузка данных с сервера</p>
-        </div>
+        <ErrorAlerts />
       )}
     </div>
   );
@@ -55,6 +55,7 @@ function App({ loading, fetchData }) {
 
 const mapStateToProps = (state) => ({
   loading: state.loading,
+  error: state.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
