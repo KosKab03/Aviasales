@@ -34,7 +34,7 @@ const getTickets = async (dispatch) => {
         if (array.length <= 1000) {
           dispatch(addFilterTickets(array));
         }
-        dispatch({ type: 'GET_TICKETS', data: array });
+        dispatch({ type: 'SET_TICKETS', data: array });
       }
     } catch (error) {
       if (error.message !== 'Unexpected end of JSON input') {

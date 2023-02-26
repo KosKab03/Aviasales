@@ -1,5 +1,5 @@
 import App from './components/app';
-import reducer from './store/reducer';
+import reducer from './store/reducers/index';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

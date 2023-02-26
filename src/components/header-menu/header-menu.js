@@ -1,19 +1,22 @@
-import * as actionsSorting from '../../store/actions/actions-sorting';
+import { sortingTickets } from '../../helpers/helpers';
+import { setNumber } from '../../store/actions/actions-number-vis-ticket';
+import * as actions from '../../store/actions/actions-filter';
 
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
 import { Radio } from 'antd';
 
-function HeaderMenu({ toggle }) {
+function HeaderMenu({ filterTickets, addFilterTickets, setNum }) {
   return (
     <Radio.Group
-      defaultValue="cheap"
       buttonStyle="solid"
       className="header-menu"
       size="large"
       onChange={(e) => {
-        toggle(e.target.value);
+        setNum();
+        const newSortingTickets = sortingTickets(filterTickets, e.target.value);
+        addFilterTickets(newSortingTickets);
       }}
     >
       <Radio.Button value="cheap">Самый дешевый</Radio.Button>
@@ -23,4 +26,11 @@ function HeaderMenu({ toggle }) {
   );
 }
 
-export default connect(null, actionsSorting)(HeaderMenu);
+const mapStateToProps = ({ filterTickets }) => ({ filterTickets });
+
+const mapDispatchToProps = (dispatch) => ({
+  setNum: () => dispatch(setNumber()),
+  ...bindActionCreators(actions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderMenu);

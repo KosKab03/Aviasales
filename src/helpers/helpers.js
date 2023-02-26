@@ -44,7 +44,25 @@ const helpers = {
     });
     return newArray;
   },
+
+  sortingTickets(array, action) {
+    const oldArray = [...array];
+    let newArray = [];
+
+    switch (action) {
+      case 'cheap':
+        newArray = oldArray.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        break;
+      case 'fast':
+        newArray = oldArray.sort((a, b) => parseFloat(a.segments[0].duration) - parseFloat(b.segments[0].duration));
+        break;
+      default:
+        newArray = oldArray;
+    }
+    return newArray;
+  },
 };
 
 export const { ticketDataConversion } = helpers;
 export const { filterTickets } = helpers;
+export const { sortingTickets } = helpers;

@@ -1,7 +1,6 @@
 import * as actionsFilter from '../../store/actions/actions-filter';
-import { filterTickets } from '../helpers/helpers';
+import { filterTickets } from '../../helpers/helpers';
 import { setNumber } from '../../store/actions/actions-number-vis-ticket';
-
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Checkbox } from 'antd';
@@ -13,7 +12,7 @@ const CheckboxGroup = Checkbox.Group;
 
 const plainOptions = ['Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'];
 
-function SidebarMenu({ filters, tickets, toggle, addAll, delAll, addFilterTickets, found, setNum }) {
+function SidebarMenu({ filter, tickets, toggle, addAll, delAll, addFilterTickets, found, setNum }) {
   const [checkedList, setCheckedList] = useState(plainOptions);
   const [stateCheckAll, setStateCheckAll] = useState(true);
 
@@ -61,7 +60,7 @@ function SidebarMenu({ filters, tickets, toggle, addAll, delAll, addFilterTicket
       <CheckboxGroup
         className="sidebar_checbox-group"
         options={plainOptions}
-        value={filters}
+        value={filter}
         onChange={(e) => {
           onCheckedList(e);
         }}
@@ -70,8 +69,8 @@ function SidebarMenu({ filters, tickets, toggle, addAll, delAll, addFilterTicket
   );
 }
 
-const mapStateToProps = ({ filters, tickets }) => ({
-  filters,
+const mapStateToProps = ({ filter, tickets }) => ({
+  filter,
   tickets,
 });
 

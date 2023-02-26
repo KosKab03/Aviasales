@@ -1,5 +1,5 @@
 import classTicket from '../ticket-list/ticket-list.module.scss';
-import { ticketDataConversion } from '../helpers/helpers';
+import { ticketDataConversion } from '../../helpers/helpers';
 
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
